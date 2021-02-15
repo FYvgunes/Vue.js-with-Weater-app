@@ -98,7 +98,7 @@ export default {
 
         }
         else if(this.weather.weather[0].main == "Snow"){
-          this.image = "clod";
+          this.image = "cold";
         }
         else if(this.weather.weather[0].main == "Rain"){
           this.image = "rain";

@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="982e7f5c-ebe7-47e2-9d22-3b54c019c0c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/weater-app/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/weater-app/src/App.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +36,7 @@
       <option name="presentableId" value="Default" />
       <updated>1613333271153</updated>
       <workItem from="1613333274392" duration="8381000" />
-      <workItem from="1613372796832" duration="9691000" />
+      <workItem from="1613372796832" duration="10013000" />
     </task>
     <servers />
   </component>
