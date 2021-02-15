@@ -1,5 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" :class="image"
+       @change="changeimge"
+       >
 <main>
   <div class="searc-box">
     <input
@@ -17,13 +19,14 @@
       <div class="location">{{weather.name }}, {{weather.sys.country}}</div>
       <div class="date">{{databuild()}}</div>
     </div>
-
+    <div class="weater-box">
+      <div class="temp">{{ Math.round(weather.main.temp)}}°C</div>
+      <div class="weater">{{status()}}</div>
+      <div class="weater-min">{{ Math.round(weather.main.temp_min)}}°C /{{ Math.round(weather.main.temp_max)}}°C</div>
+    </div>
   </div>
 
-  <div class="weater-box">
-    <div class="temp"> {{Math.round(weather.main.temp)}}°C</div>
-    <div class="weater">{{weather.weather[0].main}}</div>
-  </div>
+
 
 </main>
   </div>
@@ -34,10 +37,13 @@ export default {
   name: 'app',
   data() {
     return {
-      api_key: "5d9e156fb8a5307802470209fa882947",
-      url_base: 'https://api.openweathermap.org/data/2.5/',
+
+      api_key: "80c1200ba81b6d7dc0ea183c1b5cac47",
+      url_base: "https://api.openweathermap.org/data/2.5/",
       query: '',
       weather: {},
+      image:'cold',
+
 
 
     }
@@ -48,7 +54,6 @@ export default {
         fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
           .then(res => {
             return res.json();
-
           }).then(this.setResults);
       }
     },
@@ -57,7 +62,7 @@ export default {
       this.weather = results;
     },
     databuild(){
-      let d = new Data();
+      let d = new Date();
       let mounts = ["Ocak","Şubat","Mart","Nisan","Mayıs","Hazıran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
       let days = ["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"];
 
@@ -68,7 +73,45 @@ export default {
 
       return `${date} ${day} ${mount} ${year}`;
 
-   }
+   },
+    status(){
+      let status = ["Güneşli", "Bulutlu", "Karlı", "Açık", "Yağmurlu", "Sisli"];
+
+      if (this.weather.weather[0].main == "Clouds") {
+        return `${status[1]}`;
+      } else if (this.weather.weather[0].main == "Clear") {
+        return `${status[3]}`;
+      } else if (this.weather.weather[0].main == "Mist") {
+        return `${status[5]}`;
+      } else if (this.weather.weather[0].main == "Snow") {
+        return `${status[2]}`;
+      } else if (this.weather.weather[0].main == "Rain") {
+        return `${status[4]}`;
+      }
+    },
+
+    changeimge(){
+
+        if(this.weather.weather[0].main == "Clouds") {
+
+          this.image = "clear";
+
+        }
+        else if(this.weather.weather[0].main == "Snow"){
+          this.image = "clod";
+        }
+        else if(this.weather.weather[0].main == "Rain"){
+          this.image = "rain";
+        }
+        else if(this.weather.weather[0].main == "Mist"){
+          this.image = "mist";
+        }
+        else
+        {
+          this.image = "rain";
+        }
+
+    }
 
   }
 }
@@ -84,11 +127,24 @@ body{
   font-family: 'montserrat' ,sans-serif;
 }
 #app{
-  background-image: url("./assets/cold.jpg");
   background-size: cover;
   background-position:center;
   transition: 0.4s;
 }
+#app.cold{
+  background-image:url(assets/cold.jpg) ;
+}
+#app.clear{
+  background-image:url(assets/couldy.jpg) ;
+}
+#app.rain{
+  background-image:url(assets/rainy.jpg) ;
+}
+#app.mist{
+   background-image:url(assets/sun.jpg) ;
+ }
+
+
 main{
   min-height: 100vh;
   padding: 75px;
@@ -150,6 +206,12 @@ main{
   font-weight: 700;
   font-style: italic;
   text-shadow: 3px 6px rgba(0,0,0,0.25);
+}
+.weater-min{
+  color: white;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 20px;
 }
 
 
